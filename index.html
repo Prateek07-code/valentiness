@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive Website</title>
+  <style>
+    body {
+      background-color: black;
+      color: white;
+      font-family: 'Arial', sans-serif;
+      text-align: center;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    .question {
+      font-size: 24px;
+      margin-top: 20px;
+      display: block;
+    }
+
+    .options {
+      margin-top: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .option-button {
+      background-color: #0070c9;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 20px;
+      margin: 0 10px;
+      cursor: pointer;
+      transition: transform 0.2s ease-in-out;
+    }
+
+    .option-button:hover {
+      transform: scale(1.1);
+    }
+
+    .fireworks {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      background: url('https://i.pinimg.com/originals/88/17/c0/8817c00bde42185482ab6fcca3e8faa8.gif') center/cover no-repeat;
+      display: none;
+    }
+
+    .message {
+      font-size: 18px;
+      margin-top: 20px;
+      color: white;
+      display: none;
+      text-align: center;
+      line-height: 1.5;
+    }
+
+    .happy-valentines-button {
+      background-color: #0070c9;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 20px;
+      margin-top: 20px;
+      cursor: pointer;
+      display: none;
+      transition: transform 0.2s ease-in-out;
+    }
+
+    .happy-valentines-button:hover {
+      transform: scale(1.1);
+    }
+
+    .error-message {
+      font-size: 18px;
+      margin-top: 20px;
+      color: red;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="question" id="firstQuestion">Hi Amyraa, how has your day been today?</div>
+  <div class="options" id="firstOptions">
+    <button class="option-button" onclick="showValentinesDay()">Good</button>
+    <button class="option-button" onclick="showValentinesDay()">Very Good</button>
+  </div>
+
+  <div class="error-message" id="errorMessage" style="display: none;">
+    Please don't mess with me Amyraa. 😑
+  </div>
+
+  <div class="question" id="valentinesDayQuestion" style="display: none;">To make it even better just wanted to remind you that Valentine's Day is coming.</div>
+  <div class="options" id="valentinesDayOptions" style="display: none;">
+    <button class="option-button" onclick="askToBeValentine()">I KNOW!!!!!!</button>
+  </div>
+
+  <div class="message" id="finalMessage" style="display: none;">
+    Amyraa Srivastava, congratulations! <br>
+    You have made a very, very sensible decision of being my Valentine. Okay kidding.😂😂 <br>
+    I love you Amyraa Srivastava! And I am very grateful that you are my Valentine. <br>
+    Maybe it's not the perfect one, but I still want it to be memorable for you. <br>
+    Thank you for being my Valentine , my love. Here's to many many more!!!
+  </div>
+
+  <button class="happy-valentines-button" id="happyValentinesButton" onclick="showFireworks()">Happy Valentines, I love you too!!</button>
+
+  <div class="fireworks" id="fireworks"></div>
+
+  <script>
+    let consecutiveYesCount = 0;
+
+    function showValentinesDay() {
+      document.getElementById('firstQuestion').style.display = 'none';
+      document.getElementById('firstOptions').style.display = 'none';
+
+      document.getElementById('valentinesDayQuestion').style.display = 'block';
+      document.getElementById('valentinesDayOptions').style.display = 'flex';
+    }
+
+    function askToBeValentine() {
+      document.getElementById('valentinesDayQuestion').innerHTML = 'I know this is a bit overdue now but it would mean the world to me if you say yes , Will you be my Valentine?';
+      document.getElementById('valentinesDayOptions').innerHTML =
+        `<button class="option-button" onclick="showAreYouSure()">Yes</button>` +
+        `<button class="option-button" onclick="showAreYouSure()">No</button>`;
+      increaseButtonSize();
+    }
+
+    function showAreYouSure() {
+      document.getElementById('valentinesDayQuestion').innerHTML = 'Are you sure?';
+      document.getElementById('valentinesDayOptions').innerHTML =
+        `<button class="option-button" onclick="showReallySure()">Yes!</button>` +
+        `<button class="option-button" onclick="showErrorMessage()">No</button>`;
+      increaseButtonSize();
+    }
+
+    function showReallySure() {
+      document.getElementById('valentinesDayQuestion').innerHTML = 'Are you really, really sure?';
+      document.getElementById('valentinesDayOptions').innerHTML =
+        `<button class="option-button" onclick="showSuccessMessage()">Yes!!</button>` +
+        `<button class="option-button" onclick="showErrorMessage()">No</button>`;
+      increaseButtonSize();
+    }
+
+    function showSuccessMessage() {
+      document.getElementById('valentinesDayQuestion').style.display = 'none';
+      document.getElementById('valentinesDayOptions').style.display = 'none';
+
+      document.getElementById('finalMessage').style.display = 'block';
+      document.getElementById('happyValentinesButton').style.display = 'block';
+    }
+
+    function showErrorMessage() {
+      document.getElementById('errorMessage').style.display = 'block';
+    }
+
+    function increaseButtonSize() {
+      consecutiveYesCount++;
+      if (consecutiveYesCount > 1) {
+        let buttons = document.querySelectorAll('.option-button');
+        buttons.forEach(button => {
+          button.style.fontSize = `${24 + (consecutiveYesCount * 2)}px`;
+        });
+      }
+    }
+
+    function showFireworks() {
+      document.getElementById('fireworks').style.display = 'block';
+    }
+  </script>
+</body>
+</html>
